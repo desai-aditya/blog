@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App/>, document.getElementById('root'));
 
-
+// logging the loadTime only when the window is loaded
 window.onload = function(){
     setTimeout(function(){
       var t = window.performance.timing;
