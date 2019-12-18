@@ -17,22 +17,39 @@ blogPosts.push(new BlogElement(3,"title gi","ghi",new Date(), ["g","h","i"]));
 
 
 class App extends Component {
-  /*
+  
   constructor() {
     super();
-    this.state = { markdown: '' };
+
+    this.state = {
+      blogPosts, // is shorthand for blogPosts : blogPosts since the name is same
+
+     
+    };
+
+    this.onDismiss = this.onDismiss.bind(this);
+
+
+    //this.state = { markdown: '' };
   }
-  
+  onDismiss=(id)=> {
+    const isNotId = item => item.id !== id;
+    const newPosts = this.state.blogPosts.filter(isNotId);
+    this.setState({ blogPosts: newPosts });
+  }
+
+  /*
   componentWillMount() {
     // Get the contents from the Markdown file and put them in the React state, so we can reference it in render() below.
     fetch(AppMarkdown).then(res => res.text()).then(text => this.setState({ markdown: text }));
   }
-  */  
+  */
+ 
   render(){    
-     
-      return ( // returns a div element with a transformed list of blogElements
+
+      return ( // returns a div element with a transformed list of blogElements   
         <div className="App">
-          {blogPosts.map(function(item){  // the transformation of blogElements to react components
+          {this.state.blogPosts.map((item)=>{  // the transformation of blogElements to react components
                       
                         return (
                           
@@ -45,7 +62,17 @@ class App extends Component {
                             <ol>{item.tags.map(function(tag){  // tags is also a list of tags
                                 const h3Style={color:'#0080ff'}; // pass a style object.. better to use a className
                               return (<li style={h3Style}> {tag} </li>  );})}</ol>
+                            <span>
+                              <button
+                              onClick={()=> {this.onDismiss(item.id)}}
+                              type="button"
+                              >
+                              Dismiss
+                              </button>
+                            </span>
+                            
                             </div>
+
                             
                         );
                       })
